@@ -49,4 +49,4 @@ sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/ht
 sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/eboard.js
 sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/eboard.php
 sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/index.html
-sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/jquery-3.4.0.min
+sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/jquery-3.4.0.min.js
