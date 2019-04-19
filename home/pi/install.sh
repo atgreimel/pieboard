@@ -41,7 +41,6 @@ sudo sed -i '/#\tfastcgi_pass 127\.0\.0\.1:9000;/{n;s/#//}' /etc/nginx/sites-ena
 
 sudo rm /var/www/html/index.nginx-debian.html
 sudo /etc/init.d/nginx start
-#sudo /etc/init.d/nginx reload
 
 sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/bg.png
 sudo wget https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/dailySlide.phtml
