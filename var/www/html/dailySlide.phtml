@@ -1,0 +1,24 @@
+<div class="eventlist">
+    <table class="eventtable">
+        <caption class="shaded">Today at Oak Grove</caption>
+        <tbody>
+<?php if ($daysEvents === FALSE): ?>
+            <tr>
+                <td class="shaded">Unable to get events.</td>
+            </tr>
+<?php endif; ?>
+<?php if (count($daysEvents) == 0): ?>
+            <tr>
+                <td class="shaded">No scheduled events.</td>
+            </tr>
+<?php endif; ?>
+<?php foreach ($daysEvents as $event): ?>
+            <tr>
+                <td class="right shaded"><?php echo $event['time']->format('g:i A'); ?></td>
+                <td class="shaded"><?php echo $event['name']; ?></td>
+                <td class="shaded"><?php echo $event['location']; ?></td>
+            </tr>
+<?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
