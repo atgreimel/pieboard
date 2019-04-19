@@ -59,8 +59,8 @@ echo json_encode(json_encode($result)); // why twice? otherwise, js error
 function getDailyCalendar($date, $filter, $limit) {
 
     $filename = '/tmp/dailyCalendar.json';
-    // pretend file is old
-    // so if it doesn't exist it's expired by date
+    // say file date is yesterday
+    // so if file doesn't exist, it'll be expired by date
     $fileDate = new DateTime('yesterday');
     if (file_exists($filename)) {
         // update to actual file date
