@@ -22,7 +22,7 @@ if (isset($_GET['date'])) {
 $filter = TRUE;
 $limit = 8;
 
-// get an array of events for the day limited to those nearesst the current time
+// get an array of events for the day limited to those nearest the current time
 $daysEvents = getDailyCalendar($date, $filter, $limit);
 ob_start();
 require 'dailySlide.phtml';
