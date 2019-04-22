@@ -76,6 +76,13 @@ sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard
 sudo sed -i "s|\(\$username = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acsuser\2|" /var/www/config/acsUser.php
 sudo sed -i "s|\(\$password = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acspass\2|" /var/www/config/acsUser.php
 
+### mount /tmp in ram (and /var/log?)
+cat <<'EOT' | sudo tee -a /etc/fstab
+
+tmpfs /tmp tmpfs defaults,nosuid,size=100M
+#tmpfs /var/log tmpfs defaults,nosuid,mode=0755,size=100M
+EOT
+
 ## all done - remove self and reboot after 1 minute
 rm install.sh
 sudo shutdown -r +1
