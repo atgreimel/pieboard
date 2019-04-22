@@ -80,7 +80,6 @@ sudo sed -i "s|\(\$password = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acspass\2|" /var/www/
 cat <<'EOT' | sudo tee -a /etc/fstab
 
 tmpfs /tmp tmpfs defaults,nosuid,size=100M
-#tmpfs /var/log tmpfs defaults,nosuid,mode=0755,size=100M
 EOT
 
 ## all done - remove self and reboot after 1 minute
