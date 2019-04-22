@@ -3,6 +3,10 @@
 ### set new password
 sudo passwd pi
 
+## read acs user credentials - remainder is unattended
+read -p "ACS User: " acsuser
+read -s -p "ACS Password: " acspass
+
 ### take care of raspi-config settings
 sudo raspi-config nonint do_boot_behaviour B2
 sudo raspi-config nonint do_change_locale en_US.UTF-8
@@ -58,7 +62,7 @@ sudo sed -i '/#\tfastcgi_pass 127\.0\.0\.1:9000;/{n;s/#//}' /etc/nginx/sites-ena
 sudo rm /var/www/html/index.nginx-debian.html
 sudo /etc/init.d/nginx start
 
-### get eboard web files
+### get eboard web application files
 sudo wget -P /var/www/config/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/config/acsUser.php
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/bg.png
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/dailySlide.phtml
@@ -69,8 +73,6 @@ sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/jquery-3.4.0.min.js
 
 ## add acs user credentials
-read -p "ACS User: " acsuser
-read -s -p "ACS Password: " acspass
 sudo sed -i "s|\(\$username = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acsuser\2|" /var/www/config/acsUser.php
 sudo sed -i "s|\(\$password = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acspass\2|" /var/www/config/acsUser.php
 
