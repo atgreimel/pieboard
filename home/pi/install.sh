@@ -1,13 +1,19 @@
 #!/bin/bash
 
+### set new password
+sudo passwd pi
+
+### take care of raspi-config settings
 sudo raspi-config nonint do_boot_behaviour B2
 sudo raspi-config nonint do_change_locale en_US.UTF-8
 sudo raspi-config nonint do_change_timezone US/Central
 sudo raspi-config nonint do_configure_keyboard us
 
+### update package lists and upgrade
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
+### install required packages
 sudo apt-get -y install --no-install-recommends xserver-xorg
 sudo apt-get -y install --no-install-recommends x11-xserver-utils
 sudo apt-get -y install --no-install-recommends xinit
@@ -17,6 +23,10 @@ sudo apt-get -y install --no-install-recommends nginx
 sudo apt-get -y install --no-install-recommends php-fpm
 sudo apt-get -y install --no-install-recommends php-curl
 
+## remove redundant package files
+sudo apt-get clean
+
+### setup openbox
 cat <<'EOT' | sudo tee -a /etc/xdg/openbox/autostart
 
 # Disable any form of screen saver / screen blanking / power management
@@ -33,20 +43,22 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/
 chromium-browser --disable-infobars --kiosk 'http://localhost/index.html'
 EOT
 
+### start x server automatically
 cat <<'EOT' >> .profile
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 EOT
 
+#### configure and start nginx web server
 sudo sed -i 's|index\.nginx-debian.html|index\.php|' /etc/nginx/sites-enabled/default
 sudo sed -i 's|#\(location ~ \\\.php\$ {\)|\1|' /etc/nginx/sites-enabled/default
 sudo sed -i 's|#\(\tinclude snippets/fastcgi-php\.conf;\)|\1|' /etc/nginx/sites-enabled/default
 sudo sed -i 's|#\(\tfastcgi_pass unix:/var/run/php/php7\.0-fpm\.sock;\)|\1|' /etc/nginx/sites-enabled/default
 sudo sed -i '/#\tfastcgi_pass 127\.0\.0\.1:9000;/{n;s/#//}' /etc/nginx/sites-enabled/default
-
 sudo rm /var/www/html/index.nginx-debian.html
 sudo /etc/init.d/nginx start
 
+### get eboard web files
 sudo wget -P /var/www/config/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/config/acsUser.php
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/bg.png
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/dailySlide.phtml
@@ -55,3 +67,13 @@ sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/eboard.php
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/index.html
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/jquery-3.4.0.min.js
+
+## add acs user credentials
+read -p "ACS User: " acsuser
+read -s -p "ACS Password: " acspass
+sudo sed -i "s|\(\$username = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acsuser\2|" /var/www/config/acsUser.php
+sudo sed -i "s|\(\$password = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acspass\2|" /var/www/config/acsUser.php
+
+## all done - remove self and reboot after 1 minute
+rm install.sh
+sudo shutdown -r +1
