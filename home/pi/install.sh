@@ -54,10 +54,11 @@ cat <<'EOT' >> .profile
 EOT
 
 #### configure and start nginx web server
-sudo sed -i 's|index\.nginx-debian.html|index\.php|' /etc/nginx/sites-enabled/default
-sudo sed -i 's|#\(location ~ \\\.php\$ {\)|\1|' /etc/nginx/sites-enabled/default
-sudo sed -i 's|#\(\tinclude snippets/fastcgi-php\.conf;\)|\1|' /etc/nginx/sites-enabled/default
-sudo sed -i 's|#\(\tfastcgi_pass unix:/var/run/php/php7\.0-fpm\.sock;\)|\1|' /etc/nginx/sites-enabled/default
+sudo sed -i '/\troot \/var\/www\/html;/a \\taccess_log off;' /etc/nginx/sites-enabled/default
+sudo sed -i 's/index\.nginx-debian.html/index\.php/' /etc/nginx/sites-enabled/default
+sudo sed -i 's/#\(location ~ \\\.php\$ {\)/\1/' /etc/nginx/sites-enabled/default
+sudo sed -i 's/#\(\tinclude snippets\/fastcgi-php\.conf;\)/\1/' /etc/nginx/sites-enabled/default
+sudo sed -i 's/#\(\tfastcgi_pass unix:\/var\/run\/php\/php7\.0-fpm\.sock;\)/\1/' /etc/nginx/sites-enabled/default
 sudo sed -i '/#\tfastcgi_pass 127\.0\.0\.1:9000;/{n;s/#//}' /etc/nginx/sites-enabled/default
 sudo rm /var/www/html/index.nginx-debian.html
 sudo /etc/init.d/nginx start
