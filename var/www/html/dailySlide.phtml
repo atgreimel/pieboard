@@ -16,7 +16,7 @@
                 <td class="shaded">No scheduled events.</td>
             </tr>
 <?php endif; ?>
-<?php if (!$daysEvents): ?>
+<?php if ($daysEvents === FALSE): ?>
             <tr>
                 <td class="shaded">Unable to get events.</td>
             </tr>
