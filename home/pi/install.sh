@@ -70,6 +70,7 @@ sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/eboard.css
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/eboard.js
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/eboard.php
+sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/favicon.ico
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/index.html
 sudo wget -P /var/www/html/ https://raw.githubusercontent.com/atgreimel/pieboard/master/var/www/html/jquery-3.4.0.min.js
 
