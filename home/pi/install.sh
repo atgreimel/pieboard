@@ -33,7 +33,7 @@ sudo apt-get -y install --no-install-recommends php-curl
 sudo apt-get clean
 
 ### setup openbox
-cat <<'EOT' | sudo tee -a /etc/xdg/openbox/autostart
+cat << EOT | sudo tee -a /etc/xdg/openbox/autostart
 
 # Disable any form of screen saver / screen blanking / power management
 xset s off
@@ -50,7 +50,7 @@ chromium-browser --disable-infobars --kiosk 'http://localhost/index.html'
 EOT
 
 ### start x server automatically
-cat <<'EOT' >> .profile
+cat << 'EOT' >> .profile
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 EOT
@@ -81,7 +81,7 @@ sudo sed -i "s|\(\$username = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acsuser\2|" /var/www/
 sudo sed -i "s|\(\$password = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acspass\2|" /var/www/config/acsUser.php
 
 ### mount /tmp in ram (and /var/log?)
-cat <<'EOT' | sudo tee -a /etc/fstab
+cat << EOT | sudo tee -a /etc/fstab
 
 tmpfs /tmp tmpfs defaults,nosuid,size=100M
 EOT
