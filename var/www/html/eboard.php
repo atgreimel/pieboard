@@ -89,7 +89,7 @@ function getDailyCalendar($date, $filter, $limit) {
         // file is fresh, no need to connect with acs
         $acsEvents = json_decode(file_get_contents($filename), TRUE);
     }
-    if(!acsEvents) return FALSE;
+    if(!$acsEvents) return FALSE;
 
     // create an array, filtering out events that shouldn't display
     $events = array();
