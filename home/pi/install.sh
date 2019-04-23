@@ -6,6 +6,7 @@ sudo passwd pi
 ## read acs user credentials - remainder is unattended
 read -p "ACS User: " acsuser
 read -s -p "ACS Password: " acspass
+echo
 
 ### take care of raspi-config settings
 sudo raspi-config nonint do_boot_behaviour B2
