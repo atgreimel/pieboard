@@ -2,7 +2,7 @@
     <table class="eventtable">
         <caption class="shaded">Today at Oak Grove</caption>
         <tbody>
-<?php if (count($daysEvents) > 0): ?>
+<?php if ($daysEvents && count($daysEvents) > 0): ?>
     <?php foreach ($daysEvents as $event): ?>
             <tr>
                 <td class="right shaded"><?php echo $event['time']->format('g:i A'); ?></td>
