@@ -51,7 +51,8 @@ echo json_encode(json_encode($result)); // why twice? otherwise, js error
  *   filter (boolean): turn filter on/off for testing
  *   limit (integer): max events that fit on display
  *   (remove the most distant if over limit)
- * returns an array of events containing:
+ * returns an array of events containing
+ * (or FALSE on failure):
  *   time (dateTime)
  *   name (text)
  *   location (text)
@@ -68,13 +69,13 @@ function getDailyCalendar($date, $filter, $limit) {
     }
     // create an expiration date for time comparison
     $expirationDate = $date->sub(new DateInterval('PT10M'));
-    $expiredByTime = false;
-    if ($fileDate <= $expirationDate) $expiredByTime = true; // file is at least 10 minutes old
+    $expiredByTime = FALSE;
+    if ($fileDate <= $expirationDate) $expiredByTime = TRUE; // file is at least 10 minutes old
     // remove time portion for day comparison
     $fileDate->setTime(0, 0);
     $todaysDate = $date->setTime(0, 0);
-    $expiredByDate = false;
-    if ($fileDate < $todaysDate) $expiredByDate = true; // file is from yesterday
+    $expiredByDate = FALSE;
+    if ($fileDate < $todaysDate) $expiredByDate = TRUE; // file is from yesterday
     if ($expiredByTime || $expiredByDate) {
         // file is expired, get data from acs
         $acsEvents = getAcsEvents($date->format('m/d/Y'), $date->format('m/d/Y'));
@@ -170,7 +171,8 @@ function getWeeklyHighlights($start, $addSamples = false) {
  * parameters:
  *   startDate (text): start date (inclusive)
  *   stopDate (text): stop date (inclusive)
- * returns an array of acs events containing (all text):
+ * returns an array of acs events containing (all text)
+ * (or FALSE on failure):
  *   Description
  *   EventDateId
  *   EventId
