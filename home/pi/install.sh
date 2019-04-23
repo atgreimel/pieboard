@@ -11,6 +11,7 @@ echo
 ### take care of raspi-config settings
 sudo raspi-config nonint do_boot_behaviour B2
 sudo raspi-config nonint do_change_locale en_US.UTF-8
+. /etc/default/locale
 sudo raspi-config nonint do_change_timezone US/Central
 sudo raspi-config nonint do_configure_keyboard us
 
