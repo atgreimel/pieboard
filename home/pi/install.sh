@@ -83,7 +83,7 @@ sudo sed -i "s|\(\$password = '\)\*\*\*\*\*\*\*\*\(';\)|\1$acspass\2|" /var/www/
 ### mount /tmp in ram (and /var/log?)
 cat << EOT | sudo tee -a /etc/fstab
 
-tmpfs /tmp tmpfs defaults,nosuid,size=100M
+tmpfs /tmp tmpfs defaults,noatime,nosuid,size=64M 0 0
 EOT
 
 ## all done - remove self and reboot after 1 minute
