@@ -198,12 +198,15 @@ function getAcsEvents($startDate, $stopDate) {
     $url .= '&startdate=' . $startDate;
     $url .= '&stopdate=' . $stopDate;
     $url .= '&pageSize=500';
-    $timeout = 10;
+    # keep total timeout (30s) below fastcgi_read_timeout (default 60s)
+    $connectTimeout = 10;
+    $retrieveTimeout = 20;
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connectTimeout);
+    curl_setopt($ch, CURLOPT_TIMEOUT, $retrieveTimeout);
     curl_setopt($ch, CURLOPT_USERPWD, $username . ':' . $password);
     $jsonData = curl_exec($ch);
     if(!$jsonData) {
