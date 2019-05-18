@@ -71,4 +71,4 @@ EOT
 
 ## all done - remove self and reboot after 1 minute
 rm install.sh
-sudo shutdown -r +1
+#sudo shutdown -r +1
