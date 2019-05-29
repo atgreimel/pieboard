@@ -25,6 +25,8 @@ sudo apt-get -y install --no-install-recommends chromium-browser
 sudo apt-get -y install --no-install-recommends nginx
 sudo apt-get -y install --no-install-recommends php-fpm
 sudo apt-get -y install --no-install-recommends php-curl
+sudo apt-get -y install --no-install-recommends sox
+sudo apt-get -y install --no-install-recommends libsox-fmt-mp3
 sudo apt-get -y install --no-install-recommends git
 
 ## remove redundant package files
@@ -62,6 +64,10 @@ sudo sed -i 's/#\(\tfastcgi_pass unix:\/var\/run\/php\/php7\.0-fpm\.sock;\)/\1/'
 sudo sed -i '/#\tfastcgi_pass 127\.0\.0\.1:9000;/{n;s/#//}' /etc/nginx/sites-enabled/default
 sudo rm /var/www/html/index.nginx-debian.html
 sudo /etc/init.d/nginx start
+
+#### set audio volume
+amixer sset PCM -- -8dB
+
 
 ### mount /tmp in ram (and /var/log?)
 cat << EOT | sudo tee -a /etc/fstab
