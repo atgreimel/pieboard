@@ -12,6 +12,13 @@ sudo raspi-config nonint do_change_timezone US/Central
 sudo raspi-config nonint do_configure_keyboard us
 sudo raspi-config nonint do_overscan 1
 
+### rotate display
+cat << EOT | sudo tee -a /boot/config.txt
+
+# Rotate screen 90 degrees
+display_hdmi_rotate=1
+EOT
+
 ### update package lists and upgrade
 sudo apt-get -y update
 sudo apt-get -y upgrade
