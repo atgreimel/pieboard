@@ -83,5 +83,5 @@ tmpfs /tmp tmpfs defaults,noatime,nosuid,size=64M 0 0
 EOT
 
 ## all done - remove self and reboot after 1 minute
-rm install.sh
+rm $BASH_SOURCE
 #sudo shutdown -r +1
