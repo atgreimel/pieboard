@@ -2,7 +2,7 @@
     <table class="eventtable">
         <caption class="shaded">Today at Oak Grove</caption>
         <tbody>
-<?php if ($daysEvents): ?>
+<?php if ($daysEvents !== FALSE): ?>
     <?php if (count($daysEvents) > 0): ?>
         <?php foreach ($daysEvents as $event): ?>
             <tr>
