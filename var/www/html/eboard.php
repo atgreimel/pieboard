@@ -99,8 +99,8 @@ function getDailyCalendar($date, $filter, $limit) {
             $event['Location']
             && $event['IsPublished']
 //            && stripos($event['EventName'], 'oasis') === FALSE
-//            && stripos($event['EventName'], 'staff meeting') === FALSE)
-        ) {
+//            && stripos($event['EventName'], 'staff meeting') === FALSE
+        )) {
             $events[$event['EventId']] = array(
                 'time' => new DateTime($event['StartDate']),
                 'endTime' => new DateTime($event['StopDate']),
