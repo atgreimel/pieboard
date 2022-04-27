@@ -90,16 +90,16 @@ function getDailyCalendar($date, $filter, $limit) {
         // file is fresh, no need to connect with acs
         $acsEvents = json_decode(file_get_contents($filename), TRUE);
     }
-    if(!$acsEvents) return FALSE;
+    if($acsEvents === FALSE) return FALSE;
 
     // create an array, filtering out events that shouldn't display
     $events = array();
     foreach ($acsEvents as $event) {
         if (!$filter || (
-            $event['Location'] &&
-            $event['IsPublished'] &&
-            stripos($event['EventName'], 'oasis') === FALSE &&
-            stripos($event['EventName'], 'staff meeting') === FALSE)
+            $event['Location']
+            && $event['IsPublished']
+//            && stripos($event['EventName'], 'oasis') === FALSE
+//            && stripos($event['EventName'], 'staff meeting') === FALSE)
         ) {
             $events[$event['EventId']] = array(
                 'time' => new DateTime($event['StartDate']),
